@@ -1,17 +1,18 @@
 # EverisChallenge
 Criação de api com base no desafio abaixo:
 
-Proposta
-Crie um aplicativo backend que irá expor uma API RESTful de SingUp/SignIn e
+<h4>Proposta</h4>
+<p>Crie um aplicativo backend que irá expor uma API RESTful de SingUp/SignIn e
 Consulta de Usuário.
 Todos os endpoints devem somente aceitar e somente enviar JSONs. O servidor
 deverá retornar JSON para os casos de endpoint não encontrado também.
-O aplicativo deverá persistir os dados (ver detalhes em requisitos).
-Todas as respostas de erro devem retornar o objeto:
+O aplicativo deverá persistir os dados (ver detalhes em requisitos).</p>
+<p>Todas as respostas de erro devem retornar o objeto:</p>
 {
  "mensagem": "mensagem de erro"
 }
 Prazo
+<ul>
 • 3 dias corridos.
 SignUp
 • Endpoint: /usuarios/signup
@@ -50,23 +51,29 @@ criação)
 • Caso o e-mail já exista, deverá retornar erro com a mensagem "E-mail já
 existente".
 • O token deverá ser persistido junto com o usuário
-Sign in
-• Endpoint: /usuarios/signin
-• Este endpoint irá receber um objeto com e-mail e senha.
+ <h3>Sign in</h3>
+ <ul>
+<li>Endpoint: /usuarios/signin</li>
+<li>Este endpoint irá receber um objeto com e-mail e senha.</li>
 {
  "email": "string",
  "senha": "string"
 }
-• Caso o e-mail exista e a senha seja a mesma que a senha persistida:
-o gerar um novo token
-o alterar a data do último login
-o persistir no banco de dados
-o retornar o mesmo objeto retornado no endpoint do SignUp.
-• Caso o e-mail não exista, retornar erro com status apropriado mais a mensagem
-"Usuário e/ou senha inválidos"
-• Caso o e-mail exista mas a senha não bata, retornar o status apropriado 401
-mais a mensagem "Usuário e/ou senha inválidos”
-Consultar Usuário
+  
+<li>Caso o e-mail exista e a senha seja a mesma que a senha persistida:
+<ul>
+<li>gerar um novo token</li>
+<li>alterar a data do último login</li>
+<li>persistir no banco de dados</li>
+<li>retornar o mesmo objeto retornado no endpoint do SignUp.</li>
+  </ul>
+ </li>
+<li> Caso o e-mail não exista, retornar erro com status apropriado mais a mensagem
+ "Usuário e/ou senha inválidos"</li>
+<li>Caso o e-mail exista mas a senha não bata, retornar o status apropriado 401
+ mais a mensagem "Usuário e/ou senha inválidos”</li>
+ </ul>
+ <h3>Consultar Usuário</h3>
 • Endpoint: /usuario/{id_usuario}
 • Chamadas para este endpoint devem conter um header na requisição de
 Authentication com o valor "Bearer {token}" onde {token} é o valor do token
