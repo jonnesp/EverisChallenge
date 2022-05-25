@@ -16,6 +16,8 @@ namespace EverisChallenge.App.Configuration
 
             CreateMap<UsuarioCreateDto, Usuario>().ReverseMap();
 
+            CreateMap<Telefone, TelefoneCreateDto>().ReverseMap();
+
             
                 
 

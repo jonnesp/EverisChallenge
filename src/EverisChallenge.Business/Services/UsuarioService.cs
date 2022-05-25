@@ -22,18 +22,22 @@ namespace EverisChallenge.Business.Services
             _telefoneRepo = telefoneRepo;
         }
 
-        public async Task<Usuario> Adicionar(Usuario usuario)
+        public async Task<Usuario> Adicionar(Usuario usuario, string token)
         {
             try
             {
-                //if (_usuarioRepo.FindByEmailAsync(usuario.Email))
-                //{
-                //    Notificar("E-mail já cadastrado.");
-                //}
+                var emailExiste = _usuarioRepo.FindByEmailAsync(usuario.Email);
+
+                if (_usuarioRepo.FindByEmailAsync(usuario.Email))
+                {
+                    Notificar("E-mail já cadastrado.");
+                    return null;
+                }
+                usuario.Token = token;
 
                 await _usuarioRepo.Adicionar(usuario);
 
-               
+
 
                 return usuario;
             }
@@ -49,5 +53,7 @@ namespace EverisChallenge.Business.Services
         {
             _notificador.Handle(new Notificacao(msg));
         }
+
+
     }
 }

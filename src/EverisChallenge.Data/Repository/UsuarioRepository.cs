@@ -15,7 +15,7 @@ namespace EverisChallenge.Data.Repository
 
         public bool FindByEmailAsync(string email)
         {
-            return DbSet.Select(x => x.Email == email).Any();
+            return DbSet.Select(x => x.Email).Where(m => m.Equals(email)).Any();
         }
     }
 }

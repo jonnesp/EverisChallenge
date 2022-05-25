@@ -19,9 +19,9 @@ namespace EverisChallenge.Business.Models
         public Usuario()
         {
             Id = Guid.NewGuid();
-            DataCriacao = DateTime.UtcNow;
-            DataAtualizacao = DateTime.UtcNow;
-            UltimoLogin = DateTime.UtcNow;
+            DataCriacao = DateTime.Now;
+            DataAtualizacao = DateTime.Now;
+            UltimoLogin = DateTime.Now;
 
         }
     }

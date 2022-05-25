@@ -9,7 +9,7 @@ namespace EverisChallenge.Business.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<Usuario> Adicionar(Usuario usuario);
+        Task<Usuario> Adicionar(Usuario usuario, string token);
 
 
 
