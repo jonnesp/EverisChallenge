@@ -16,5 +16,12 @@ namespace EverisChallenge.Business.Models
         public string DDD { get; set; }
 
         public Usuario Usuario { get; set; }
+
+        public Telefone()
+        {
+            Id = Guid.NewGuid();
+            DataCriacao = DateTime.UtcNow;
+            DataAtualizacao = DateTime.UtcNow;
+        }
     }
 }

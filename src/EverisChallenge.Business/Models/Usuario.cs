@@ -11,7 +11,18 @@ namespace EverisChallenge.Business.Models
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
-        public List<Telefone> Telefones { get; set; }
+        public List<Telefone> Telefones = new List<Telefone>();
         public string Token { get; set; }
+        public DateTime UltimoLogin { get; set; }
+
+
+        public Usuario()
+        {
+            Id = Guid.NewGuid();
+            DataCriacao = DateTime.UtcNow;
+            DataAtualizacao = DateTime.UtcNow;
+            UltimoLogin = DateTime.UtcNow;
+
+        }
     }
 }

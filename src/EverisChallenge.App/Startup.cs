@@ -1,4 +1,10 @@
+using AutoMapper;
+using EverisChallenge.App.Configuration;
+using EverisChallenge.Business.Interfaces;
+using EverisChallenge.Business.Notificacoes;
+using EverisChallenge.Business.Services;
 using EverisChallenge.Data.Contexto;
+using EverisChallenge.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +34,16 @@ namespace EverisChallenge.App
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EverisChallenge.App", Version = "v1" });
             });
+
+            //services.AddAutoMapper(typeof(Startup));
+            
+
+            services.AddScoped<INotificador, Notificador>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<ITelefoneRepository, TelefoneRepository>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+
+            
 
             services.AddDbContext<MeuDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
