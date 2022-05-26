@@ -13,9 +13,14 @@ namespace EverisChallenge.Data.Repository
     {
         public UsuarioRepository(MeuDbContext context) : base(context) {}
 
-        public bool FindByEmailAsync(string email)
+        public bool EmailExists(string email)
         {
             return DbSet.Select(x => x.Email).Where(m => m.Equals(email)).Any();
+        }
+
+        public Usuario FindByEmail(string email)
+        {
+            return DbSet.Where(x => x.Email == email).FirstOrDefault();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace EverisChallenge.Business.Interfaces
     {
         Task<TEntity> ObterPorId(Guid id);
         Task Adicionar(TEntity entity);
+        Task Atualizar(TEntity entity);
         Task<int> SaveChanges();
 
     }

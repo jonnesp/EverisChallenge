@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EverisChallenge.Business.Services
+namespace EverisChallenge.Service.Services
 {
     public class BaseService
     {

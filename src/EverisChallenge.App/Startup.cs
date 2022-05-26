@@ -1,11 +1,10 @@
 using AutoMapper;
-using EverisChallenge.App.Configuration;
 using EverisChallenge.App.Extensions;
 using EverisChallenge.Business.Interfaces;
 using EverisChallenge.Business.Notificacoes;
-using EverisChallenge.Business.Services;
 using EverisChallenge.Data.Contexto;
 using EverisChallenge.Data.Repository;
+using EverisChallenge.Service.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

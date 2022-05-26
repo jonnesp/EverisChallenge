@@ -33,6 +33,12 @@ namespace EverisChallenge.Data.Repository
             await SaveChanges();
         }
 
+        public virtual async Task Atualizar(TEntity entity)
+        {
+            DbSet.Update(entity);
+            await SaveChanges();
+        }
+
         public async Task<int> SaveChanges()
         {
             return await Db.SaveChangesAsync();

@@ -4,6 +4,7 @@ using EverisChallenge.App.Extensions;
 using EverisChallenge.Business;
 using EverisChallenge.Business.Interfaces;
 using EverisChallenge.Business.Models;
+using EverisChallenge.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -41,11 +42,8 @@ namespace EverisChallenge.App.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            // var user = CriarUsuario(registerUser);
 
-            var token = GerarToken();
-
-            var result = await _usuarioService.Adicionar(_mapper.Map<Usuario>(registerUser), token);
+            var result = await _usuarioService.Adicionar(_mapper.Map<Usuario>(registerUser));
 
             return CustomResponse(_mapper.Map<UsuarioCreateDtoResult>(result));
         }
@@ -57,28 +55,22 @@ namespace EverisChallenge.App.Controllers
             return Ok("Consegui Entrar");
         }
 
-
-
-        private string GerarToken()
+        [HttpPost("signin")]
+        public async Task<ActionResult> AutenticarUsuario(UserLoginDto user)
         {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             
-            var secret = _configuration["AppSettings:Secret"];
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(secret);
+            var result = await _usuarioService.AutenticarUsuario(user.Email, user.Senha);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Expires = DateTime.UtcNow.AddHours(2),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
-
+            return CustomResponse(_mapper.Map<UsuarioCreateDtoResult>(result));
         }
+
+
+
+
+        
 
 
 

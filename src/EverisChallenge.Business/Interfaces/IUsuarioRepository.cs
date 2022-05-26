@@ -9,7 +9,9 @@ namespace EverisChallenge.Business.Interfaces
 {
     public interface IUsuarioRepository : IBaseRepository<Usuario>
     {
-        bool FindByEmailAsync(string email);
+        bool EmailExists(string email);
+
+        Usuario FindByEmail(string email);
 
     }
 }
