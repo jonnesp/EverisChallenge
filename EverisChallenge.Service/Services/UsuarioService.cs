@@ -85,9 +85,44 @@ namespace EverisChallenge.Service.Services
             }
         }
 
+
+        public async Task<Usuario> Buscar(Guid id, string token)
+        {
+            var user = await _usuarioRepo.ObterPorId(id);
+
+            if (!RealizarValidacoes(user, token)) return null;
+            
+            var teste = DateTime.Now.Subtract(user.UltimoLogin).TotalMinutes;
+
+            return user;
+
+        }
+
         private void Notificar(string msg)
         {
             _notificador.Handle(new Notificacao(msg));
+        }
+
+        private bool RealizarValidacoes(Usuario user, string token)
+        {
+            if (user is null)
+            {
+                Notificar("Usuário não localizado.");
+                return false;
+            }
+            if (!user.Token.Equals(token))
+            {
+                Notificar("Não Autorizado.");
+                return false;
+                
+            }
+            if (DateTime.Now.Subtract(user.UltimoLogin).TotalMinutes > 30)
+            {
+                Notificar("Sessão Inválida, favor gerar um novo token.");
+                return false;
+                
+            }
+            return true;
         }
 
 

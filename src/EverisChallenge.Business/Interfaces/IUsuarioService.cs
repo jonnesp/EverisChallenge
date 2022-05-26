@@ -13,7 +13,7 @@ namespace EverisChallenge.Business.Interfaces
 
         Task<Usuario> AutenticarUsuario(string email, string senha);
 
-
+        Task<Usuario> Buscar(Guid id, string token);
 
     }
 }

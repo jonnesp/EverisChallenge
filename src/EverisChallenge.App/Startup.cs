@@ -40,7 +40,7 @@ namespace EverisChallenge.App
 
             services.AddAutoMapper(typeof(Startup));
 
-
+            services.AddHttpContextAccessor();
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<ITelefoneRepository, TelefoneRepository>();

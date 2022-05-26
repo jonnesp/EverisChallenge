@@ -6,6 +6,7 @@ using EverisChallenge.Business.Interfaces;
 using EverisChallenge.Business.Models;
 using EverisChallenge.Service.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,18 +25,43 @@ namespace EverisChallenge.App.Controllers
     {
         private readonly IUsuarioService _usuarioService;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContext;
 
         public UsuariosController(INotificador notificador,
                                 IUsuarioService usuarioService,
-                                IMapper mapper,
-                                IConfiguration configuration
-                                ) : base(notificador)
+                                IMapper mapper, 
+                                IHttpContextAccessor httpContext) : base(notificador)
         {
             _usuarioService = usuarioService;
             _mapper = mapper;
-            _configuration = configuration;
+            _httpContext = httpContext;
         }
+
+        [HttpGet("{id:Guid}")]
+        [Authorize]
+        public async Task<ActionResult> SearchById(Guid id)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var token = RecuperarToken();
+
+            var result = await _usuarioService.Buscar(id, token);
+
+            return CustomResponse(_mapper.Map<UsuarioCreateDtoResult>(result));
+        }
+
+        //[HttpGet]
+        //public async Task<ActionResult> TestHttpContext()
+        //{
+        //    if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            
+
+        //    return Ok(token);
+        //}
+
+        
+
 
         [HttpPost("signup")]
         public async Task<ActionResult> SignUp(UsuarioCreateDto registerUser)
@@ -46,13 +72,6 @@ namespace EverisChallenge.App.Controllers
             var result = await _usuarioService.Adicionar(_mapper.Map<Usuario>(registerUser));
 
             return CustomResponse(_mapper.Map<UsuarioCreateDtoResult>(result));
-        }
-
-        [HttpGet("test-aut")]
-        [Authorize]
-        public ActionResult TesteAut(UsuarioCreateDto registerUser)
-        {
-            return Ok("Consegui Entrar");
         }
 
         [HttpPost("signin")]
@@ -67,10 +86,16 @@ namespace EverisChallenge.App.Controllers
             return CustomResponse(_mapper.Map<UsuarioCreateDtoResult>(result));
         }
 
+        private string RecuperarToken()
+        {
+            var token = _httpContext.HttpContext.Request.Headers["Authorization"].ToString();
+
+            return token.Substring(7);
+        }
 
 
 
-        
+
 
 
 
