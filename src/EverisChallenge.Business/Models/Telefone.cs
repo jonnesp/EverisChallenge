@@ -9,7 +9,7 @@ namespace EverisChallenge.Business.Models
     public class Telefone : Entity
     {
 
-        public Guid UsuarioId { get; set; }
+        public String UsuarioId { get; set; }
 
         public string Numero { get; set; }
 
@@ -19,7 +19,7 @@ namespace EverisChallenge.Business.Models
 
         public Telefone()
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
             DataCriacao = DateTime.UtcNow;
             DataAtualizacao = DateTime.UtcNow;
         }

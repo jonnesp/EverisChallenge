@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,8 @@ namespace EverisChallenge.Business.Models
 {
     public abstract class Entity
     {
-        public Guid Id { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public String Id { get; set; }
 
         public DateTime DataCriacao { get; set; }
 
@@ -17,7 +20,7 @@ namespace EverisChallenge.Business.Models
 
         public Entity()
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
             DataCriacao = DateTime.UtcNow;
         }
     }

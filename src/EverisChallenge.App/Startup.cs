@@ -1,6 +1,7 @@
 using AutoMapper;
 using EverisChallenge.App.Extensions;
 using EverisChallenge.Business.Interfaces;
+using EverisChallenge.Business.Models;
 using EverisChallenge.Business.Notificacoes;
 using EverisChallenge.Data.Contexto;
 using EverisChallenge.Data.Repository;
@@ -41,10 +42,7 @@ namespace EverisChallenge.App
             services.AddAutoMapper(typeof(Startup));
 
             services.AddHttpContextAccessor();
-            services.AddScoped<INotificador, Notificador>();
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddScoped<ITelefoneRepository, TelefoneRepository>();
-            services.AddScoped<IUsuarioService, UsuarioService>();
+            
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<JwtConfig>(appSettingsSection);
@@ -72,16 +70,19 @@ namespace EverisChallenge.App
                 };
             });
 
+            services.AddScoped<INotificador, Notificador>();
+            services.Configure<BookStoreDatabaseSettings>(Configuration.GetSection("BookStoreDatabase"));
+            services.ConfigureSqlDependencies(Configuration);
+            services.AddSingleton<BookDb>();
 
 
 
-
-            services.AddDbContext<MeuDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

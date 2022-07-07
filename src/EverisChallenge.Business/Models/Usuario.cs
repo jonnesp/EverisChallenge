@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,10 +16,23 @@ namespace EverisChallenge.Business.Models
         public string Token { get; set; }
         public DateTime UltimoLogin { get; set; }
 
-
+        //Chamada pelo Endpoint de Usuario
         public Usuario()
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
+            DataCriacao = DateTime.Now;
+            DataAtualizacao = DateTime.Now;
+            UltimoLogin = DateTime.Now;
+
+        }
+
+        //Chamada pelo Endpoint do mongoDB
+        public Usuario(string nome, string email, string senha)
+        {
+            Id = ObjectId.GenerateNewId().ToString();
+            Nome = nome;
+            Email = email;
+            Senha = senha;
             DataCriacao = DateTime.Now;
             DataAtualizacao = DateTime.Now;
             UltimoLogin = DateTime.Now;

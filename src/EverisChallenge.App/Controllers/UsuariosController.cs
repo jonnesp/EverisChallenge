@@ -4,6 +4,7 @@ using EverisChallenge.App.Extensions;
 using EverisChallenge.Business;
 using EverisChallenge.Business.Interfaces;
 using EverisChallenge.Business.Models;
+using EverisChallenge.Data.Contexto;
 using EverisChallenge.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +27,7 @@ namespace EverisChallenge.App.Controllers
         private readonly IUsuarioService _usuarioService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContext;
+
 
         public UsuariosController(INotificador notificador,
                                 IUsuarioService usuarioService,
@@ -50,12 +52,14 @@ namespace EverisChallenge.App.Controllers
             return CustomResponse(_mapper.Map<UsuarioCreateDtoResult>(result));
         }
 
+
+
         //[HttpGet]
         //public async Task<ActionResult> TestHttpContext()
         //{
         //    if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            
+
 
         //    return Ok(token);
         //}
