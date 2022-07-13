@@ -17,6 +17,7 @@ namespace EverisChallenge.App.Extensions
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<ITelefoneRepository, TelefoneRepository>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IRefitConsumeService, RefitCustomerService>();
             services.AddDbContext<MeuDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             return services;
