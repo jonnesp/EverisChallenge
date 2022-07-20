@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace EverisChallenge.Business.Interfaces
 {
-    public interface IRefitConsumeApi
+    public interface IAdvice
     {
-        
 
-        [Get("/api/funcionario/{id}")]
-        Task<FuncionarioApi> GetFuncionario(string id, [Header("Header-A")] string a, [Header("Header-B")] string b);
+        [Get("/advice/{id}")]
+        Task<AdviceModel> GetAdviceById(string id);
 
-        
+        [Get("/advice")]
+        Task<AdviceModel> GetAdvice();
     }
 }

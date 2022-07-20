@@ -1,18 +1,21 @@
-﻿using EverisChallenge.Business.Interfaces;
+﻿using EverisChallenge.App.Filtros;
+using EverisChallenge.Business.Interfaces;
 using EverisChallenge.Business.Models;
 using EverisChallenge.Data.Contexto;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EverisChallenge.App.Controllers
 {
     [Route("api/[controller]")]
+    [ConfigureMongoFilter]
     public class BookController : MainController
     {
-        private readonly BookDb _booksService;
+        private readonly IBookDb _booksService;
 
-        public BookController(INotificador notificador, BookDb service):base(notificador) 
+        public BookController(INotificador notificador, IBookDb service):base(notificador) 
         {
             _booksService = service;
         }

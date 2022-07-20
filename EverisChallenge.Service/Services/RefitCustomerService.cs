@@ -9,30 +9,27 @@ using System.Threading.Tasks;
 
 namespace EverisChallenge.Service.Services
 {
-    public class RefitCustomerService : IRefitConsumeService
+    public class RefitCustomerService : AdviceService
     {
-        private readonly IRefitConsumeApi _customerService;
-        private readonly string _apiUrl;
+        private readonly IAdvice RefitAdvice;
 
-        public RefitCustomerService()
+        public RefitCustomerService(IAdvice refitAdvice)
         {
-            _apiUrl = "https://localhost:7144";
-            _customerService = RestService.For<IRefitConsumeApi>(_apiUrl);
+            RefitAdvice = refitAdvice;
         }
 
-        ////Advice Endpoint
-        //public async Task<RefitCustomer> GetAsync()
-        //{
-        //    return await _customerService.GetAsync();
-        //}
-
-        //Api Endpoint
-        public async Task<FuncionarioApi> GetFuncionario(string id)
+ 
+        public async Task<AdviceModel> GetAdviceById(string id)
         {
-            string a = "Valor-A";
-            string b = "Valor-B";
-            return await _customerService.GetFuncionario(id, a, b);
+            
+            var result = await RefitAdvice.GetAdviceById(id);
+            return result;
         }
 
+
+        public async Task<AdviceModel> GetAdvice()
+        {
+           return await RefitAdvice.GetAdvice();
+        }
     }
 }

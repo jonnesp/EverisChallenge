@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace EverisChallenge.Business.Interfaces
 {
-    public interface IRefitConsumeService
+    public interface AdviceService
     {
-        //Task<RefitCustomer> GetAsync();
 
-        Task<FuncionarioApi> GetFuncionario(string id);
+        Task<AdviceModel> GetAdviceById(string id);
+
+        Task<AdviceModel> GetAdvice();
+
+
     }
 }

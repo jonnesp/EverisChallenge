@@ -1,5 +1,6 @@
 using AutoMapper;
 using EverisChallenge.App.Extensions;
+using EverisChallenge.App.Filtros;
 using EverisChallenge.Business.Interfaces;
 using EverisChallenge.Business.Models;
 using EverisChallenge.Business.Notificacoes;
@@ -15,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Refit;
+using System;
 using System.Text;
 
 namespace EverisChallenge.App
@@ -32,7 +35,10 @@ namespace EverisChallenge.App
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddControllers();
+            services.AddControllers(c =>
+            {
+                c.Filters.Add<MyExceptionFilter>();
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -73,7 +79,11 @@ namespace EverisChallenge.App
             services.AddScoped<INotificador, Notificador>();
             services.Configure<BookStoreDatabaseSettings>(Configuration.GetSection("BookStoreDatabase"));
             services.ConfigureSqlDependencies(Configuration);
-            services.AddSingleton<BookDb>();
+            services.AddScoped<IBookDb, BookDb>();
+            services.AddRefitClient<IAdvice>().ConfigureHttpClient(c => 
+            {
+                c.BaseAddress = new Uri(Configuration.GetSection("AdviceAddress").GetSection("AdviceBaseAddress").Value);
+            });
 
 
 

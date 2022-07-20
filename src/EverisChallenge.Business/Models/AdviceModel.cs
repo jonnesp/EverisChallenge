@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EverisChallenge.Business.Models
 {
-    public class RefitCustomer
+    public class AdviceModel
     {
         public slip slip { get; set; }
     }

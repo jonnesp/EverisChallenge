@@ -1,4 +1,5 @@
-﻿using EverisChallenge.Business.Models;
+﻿using EverisChallenge.Business.Interfaces;
+using EverisChallenge.Business.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EverisChallenge.Data.Contexto
 {
-    public class BookDb
+    public class BookDb : IBookDb
     {
         private readonly IMongoCollection<Book> _booksCollection;
 
