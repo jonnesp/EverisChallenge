@@ -18,7 +18,7 @@ namespace EverisChallenge.App.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAdviceByID(string id)
         {
-            if(!ModelState.IsValid) return CustomResponse(ModelState);
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var result = await _adviceService.GetAdviceById(id);
 

@@ -50,6 +50,7 @@ namespace EverisChallenge.App
             services.AddHttpContextAccessor();
             
 
+
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<JwtConfig>(appSettingsSection);
 
@@ -85,10 +86,13 @@ namespace EverisChallenge.App
                 c.BaseAddress = new Uri(Configuration.GetSection("AdviceAddress").GetSection("AdviceBaseAddress").Value);
             });
 
-
+            //Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Tristeza");
+            Console.WriteLine($"Valor da variavel Aspnetcore: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}");
+            var variavelAmbiente = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var result = Configuration.GetSection("VariavelTeste").Value;
 
         }
-
+       
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -96,9 +100,11 @@ namespace EverisChallenge.App
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EverisChallenge.App v1"));
+                
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EverisChallenge.App v1"));
 
             app.UseAuthentication();
             app.UseHttpsRedirection();
@@ -111,6 +117,8 @@ namespace EverisChallenge.App
             {
                 endpoints.MapControllers();
             });
+
+            app.UseHealthChecks("/health");
         }
     }
 }
