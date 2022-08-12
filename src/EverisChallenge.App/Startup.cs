@@ -1,16 +1,16 @@
 using AutoMapper;
 using EverisChallenge.App.Extensions;
 using EverisChallenge.App.Filtros;
+using EverisChallenge.App.HealthCheck;
 using EverisChallenge.Business.Interfaces;
 using EverisChallenge.Business.Models;
 using EverisChallenge.Business.Notificacoes;
 using EverisChallenge.Data.Contexto;
-using EverisChallenge.Data.Repository;
-using EverisChallenge.Service.Services;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,6 +39,14 @@ namespace EverisChallenge.App
             {
                 c.Filters.Add<MyExceptionFilter>();
             });
+
+            services.AddHealthChecks().AddCheck<CustomHealthCheck>("HealthCheck Customizavel");
+            services.AddHealthChecksUI(options =>
+            {
+                options.SetEvaluationTimeInSeconds(5);
+                options.MaximumHistoryEntriesPerEndpoint(10);
+                options.AddHealthCheckEndpoint("API com Health Checks", "/health");
+            }).AddInMemoryStorage();
 
             services.AddSwaggerGen(c =>
             {
@@ -118,7 +126,17 @@ namespace EverisChallenge.App
                 endpoints.MapControllers();
             });
 
-            app.UseHealthChecks("/health");
+            app.UseHealthChecks("/health", new HealthCheckOptions
+            {
+                Predicate = p => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+
+            app.UseHealthChecksUI(options => 
+            { 
+                options.UIPath = "/dashboard";
+                options.AddCustomStylesheet("wwwroot/css/stylesheet.css");
+            });
         }
     }
 }
