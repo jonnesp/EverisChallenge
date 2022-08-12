@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverisChallenge.App", "src\EverisChallenge.App\EverisChallenge.App.csproj", "{2BCB3D1B-3DE5-47F7-BDB5-D0B559997C2F}"
 EndProject
@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverisChallenge.Business", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverisChallenge.Data", "src\EverisChallenge.Data\EverisChallenge.Data.csproj", "{7DC273E3-42B3-4216-BA3B-A231869FD0F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverisChallenge.Service", "EverisChallenge.Service\EverisChallenge.Service.csproj", "{2461B57B-D808-4306-8F83-F6032DB41CB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverisChallenge.Service", "src\EverisChallenge.Service\EverisChallenge.Service.csproj", "{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,18 +57,18 @@ Global
 		{7DC273E3-42B3-4216-BA3B-A231869FD0F9}.Release|x64.Build.0 = Release|Any CPU
 		{7DC273E3-42B3-4216-BA3B-A231869FD0F9}.Release|x86.ActiveCfg = Release|Any CPU
 		{7DC273E3-42B3-4216-BA3B-A231869FD0F9}.Release|x86.Build.0 = Release|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Debug|x64.Build.0 = Debug|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Debug|x86.Build.0 = Debug|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Release|x64.ActiveCfg = Release|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Release|x64.Build.0 = Release|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Release|x86.ActiveCfg = Release|Any CPU
-		{2461B57B-D808-4306-8F83-F6032DB41CB5}.Release|x86.Build.0 = Release|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Debug|x64.Build.0 = Debug|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Debug|x86.Build.0 = Debug|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Release|x64.Build.0 = Release|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{F0AB5615-1C60-466E-BD4C-5EAC129E06CE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
