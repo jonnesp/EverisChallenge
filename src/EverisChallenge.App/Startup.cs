@@ -1,24 +1,12 @@
-using AutoMapper;
 using EverisChallenge.App.Extensions;
-using EverisChallenge.App.Filtros;
-using EverisChallenge.App.HealthCheck;
-using EverisChallenge.Business.Interfaces;
-using EverisChallenge.Business.Models;
-using EverisChallenge.Business.Notificacoes;
-using EverisChallenge.Data.Contexto;
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Refit;
-using System;
-using System.Text;
 
 namespace EverisChallenge.App
 {
@@ -34,81 +22,26 @@ namespace EverisChallenge.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddControllers(c =>
-            {
-                c.Filters.Add<MyExceptionFilter>();
-            });
-
-            services.AddHealthChecks().AddCheck<CustomHealthCheck>("HealthCheck Customizavel");
-            services.AddHealthChecksUI(options =>
-            {
-                options.SetEvaluationTimeInSeconds(5);
-                options.MaximumHistoryEntriesPerEndpoint(10);
-                options.AddHealthCheckEndpoint("API com Health Checks", "/health");
-            }).AddInMemoryStorage();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EverisChallenge.App", Version = "v1" });
             });
 
-            services.AddAutoMapper(typeof(Startup));
-
             services.AddHttpContextAccessor();
-            
 
-
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<JwtConfig>(appSettingsSection);
-
-            var jwtConfig = appSettingsSection.Get<JwtConfig>();
-
-            
-            var key = Encoding.ASCII.GetBytes(jwtConfig.Secret);
-
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
-
-            services.AddScoped<INotificador, Notificador>();
-            services.Configure<BookStoreDatabaseSettings>(Configuration.GetSection("BookStoreDatabase"));
-            services.ConfigureSqlDependencies(Configuration);
-            services.AddScoped<IBookDb, BookDb>();
-            services.AddRefitClient<IAdvice>().ConfigureHttpClient(c => 
-            {
-                c.BaseAddress = new Uri(Configuration.GetSection("AdviceAddress").GetSection("AdviceBaseAddress").Value);
-            });
-
-            //Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Tristeza");
-            Console.WriteLine($"Valor da variavel Aspnetcore: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}");
-            var variavelAmbiente = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var result = Configuration.GetSection("VariavelTeste").Value;
+            services.ConfigureAllDependencies(Configuration);
 
         }
-       
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
+
             }
 
             app.UseSwagger();
@@ -132,8 +65,8 @@ namespace EverisChallenge.App
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
 
-            app.UseHealthChecksUI(options => 
-            { 
+            app.UseHealthChecksUI(options =>
+            {
                 options.UIPath = "/dashboard";
                 options.AddCustomStylesheet("wwwroot/css/stylesheet.css");
             });
